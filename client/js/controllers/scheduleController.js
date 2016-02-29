@@ -30,7 +30,7 @@ define(["jquery"], function (jQuery) {
                     },
                     lang: "en",
                     events: events,
-                    timezone: "local"
+                    timezone: "local",
                 });
             });
         };
