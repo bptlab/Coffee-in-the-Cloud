@@ -186,6 +186,10 @@ define(["jquery"], function ($) {
 
             blame: function() {
                 return $http.post(url("blame"));
+            },
+
+            mailEmptyCoffee: function() {
+                return $http.post(url("blame"));
             }
         };
 

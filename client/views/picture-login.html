@@ -2,6 +2,7 @@
   <div class="row">
     <p class="alert alert-info" ng-show="cleaning">
       {{cleaning_message}}
+      <button type="button" class="btn btn-warning" ng-click="finishedCleaning()">Finished Cleaning</button>
     </p>
     <div class="col-md-4 col-xs-6 col-lg-3" ng-repeat="user in users">
       <a data-toggle="modal" data-target="#coffe-popup" ng-click="select(user)">
@@ -40,3 +41,24 @@
   </div>
     <!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade" id="empty-coffee-popup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="tablet-mode-header">Coffee empty?</h4>
+      </div>
+      <div class="modal-body">
+        <p class="tablet-mode-text">This will send an email to Katrin that the Coffee is empty</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left tablet-mode-text" data-dismiss="modal" ng-click="mailEmptyCoffee()">Send Notification</button>
+        <button type="button" class="btn btn-default tablet-mode-text" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

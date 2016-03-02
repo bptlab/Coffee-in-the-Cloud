@@ -34,19 +34,19 @@ class ScheduleEntryViewSet(viewsets.ModelViewSet):
 
 
 class ScheduleDoneView(views.APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
-        if isinstance(request.user, Account):
-            now = datetime.datetime.now()
-            try:
-                latest = ScheduleEntry.objects.get(date=datetime.date(now.year, now.month, now.day))
-            except:
-                return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+        #if isinstance(request.user, Account):
+        now = datetime.datetime.now()
+        try:
+            latest = ScheduleEntry.objects.get(date=datetime.date(now.year, now.month, now.day))
+        except:
+            return Response({}, status=status.HTTP_401_UNAUTHORIZED)
 
-            if not latest.done and latest.user.pk == request.user.pk:
-                latest.done = True
-                latest.save()
-
-                return Response({}, status=status.HTTP_200_OK)
+        if not latest.done:
+            #and latest.user.pk == request.user.pk:
+            latest.done = True
+            latest.save()
+            return Response({}, status=status.HTTP_200_OK)
         return Response({}, status=status.HTTP_401_UNAUTHORIZED)

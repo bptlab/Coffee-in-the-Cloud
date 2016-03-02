@@ -6,8 +6,8 @@ define(["jquery"], function (jQuery) {
             return viewLocation === $location.path();
         };
     }
-
     headerController.$inject = ["$scope", "$rootScope", "$location"];
 
     return headerController;
+
 });

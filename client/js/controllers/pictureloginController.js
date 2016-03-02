@@ -5,6 +5,7 @@ define(["jquery"], function (jQuery) {
 
       $rootScope.tablet = true;
         $scope.schedule = null;
+
         service.schedule.get().success(function (data) {
             $scope.schedule = data;
 
@@ -19,14 +20,16 @@ define(["jquery"], function (jQuery) {
                 dd="0"+dd;
             }
             var today = yyyy+"-"+mm+"-"+dd;
-
             $.each(data, function (idx, obj) {
-                if (today==obj.date){
+
+                if (today==obj.date && !obj.done){
                     $scope.cleaning=true;
                     $scope.cleaning_message=obj.user.first_name + " " + obj.user.last_name +" has to do the"+ (obj.type == "w" ? " weekly " : (obj.type == "b" ? " biweekly " : " other "))+"cleaning today";
                 }
             });
         });
+
+
       $scope.tablet_user = null;
 
       service.user.list().success(function (data) {
@@ -46,9 +49,23 @@ define(["jquery"], function (jQuery) {
         });
       };
 
+        $rootScope.finishedCleaning = function() {
+            service.schedule.done().success(function (data) {
+                alert.success("Thank you for doing the cleaning!");
+                $scope.cleaning= false;
+            }).error(function (result) {
+                alert.error("Cleaning couldn't be marked as done!");
+            })
+        };
+
         $scope.blame = function() {
             alert.success("Thanks for your feedback!");
             service.blame();
+        }
+
+        $scope.mailEmptyCoffee = function() {
+            alert.success("Thanks for your Notification!");
+            service.mailEmptyCoffee();
         }
     }
 
