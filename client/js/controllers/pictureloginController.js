@@ -50,12 +50,13 @@ define(["jquery"], function (jQuery) {
       };
 
         $rootScope.finishedCleaning = function() {
+            controller.welcomeController.finishedCleaning();/*
             service.schedule.done().success(function (data) {
                 alert.success("Thank you for doing the cleaning!");
                 $scope.cleaning= false;
             }).error(function (result) {
                 alert.error("Cleaning couldn't be marked as done!");
-            })
+            })*/
         };
 
         $scope.blame = function() {

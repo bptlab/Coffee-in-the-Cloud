@@ -45,8 +45,14 @@ define(["jquery"], function (jQuery) {
 
         $scope.update_balance = function() {
             if ($scope.balance_amount) {
-                service.balance.post($scope.balance_amount, $scope.balance_user).success(function (result) {
-                    alert.success("Balance updated!");
+                service.balance.post($scope.balance_amount, $scope.balance_user_id).success(function (result) {
+                    var username;
+                    if(typeof $scope.balance_user === "undefined"){
+                        username = "yourself";
+                    }else{
+                        username = $scope.balance_user_id
+                    }
+                    alert.success("You added an amount of " + $scope.balance_amount + "€");
                     $scope.reset();
                     $rootScope.$broadcast('updateUser', []);
                 }).error(function (result) {
