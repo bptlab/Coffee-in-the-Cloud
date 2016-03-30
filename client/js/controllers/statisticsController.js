@@ -109,6 +109,14 @@ define(["jquery"], function (jQuery) {
 
     function statisticsController($scope, $rootScope, service) {
         $rootScope.tablet = false;
+        service.statistics.all().success(function (data) {
+
+            var dataset = [];
+            $(data).each(function (index, entry) {
+                dataset.push({month: formatDate(entry.month), sum: entry.amount__sum});
+            });
+            $scope.totalConsumption = dataset.slice().reverse();
+        });
 
         
 
