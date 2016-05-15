@@ -54,6 +54,8 @@
                         List</a></li>
                     <li ng-class="{ active: isActive('/schedule/')}"><a href="#/schedule/">Cleaning
                         Schedule</a></li>
+                    <li ng-show=isActive('/tablet/') ng-class="{ active: isActive('/coffe-empty/')}"><a data-toggle="modal" data-target="#empty-coffee-popup" ng-click="12">Empty Coffee</a>
+                    </li>
                     <li ng-show="user" ng-class="{ active: isActive('/statistics/')}"><a
                             href="#/statistics/">Statistics</a></li>
                     <li ng-class="{ active: isActive('/tutorials/')}"><a
