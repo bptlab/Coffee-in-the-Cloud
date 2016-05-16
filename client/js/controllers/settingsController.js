@@ -2,7 +2,7 @@ define(["jquery"], function (jQuery) {
     "use strict";
 
     function settingsController($scope, $rootScope, alert, service) {
-        $scope.reset = function() {
+        $scope.reset = function () {
             $scope.changePassword = false;
             service.settings.get().success(function (result) {
                 $scope.settings = result;
@@ -19,7 +19,7 @@ define(["jquery"], function (jQuery) {
             })
         };
 
-        $scope.update = function() {
+        $scope.update = function () {
             if ($scope.settings && $scope.settings.pw_old && $scope.settings.pw_new && $scope.settings.pw_new2) {
                 if ($scope.settings.pw_new != $scope.settings.pw_new2) {
                     alert.error("The passwords do not match!");
@@ -44,10 +44,23 @@ define(["jquery"], function (jQuery) {
         };
 
 
-        $scope.update_balance = function() {
+        $scope.update_balance = function () {
             if ($scope.balance_amount) {
-                service.balance.post($scope.balance_amount, $scope.balance_user).success(function (result) {
-                    alert.success("Balance updated!");
+                var userId;
+                var userName;
+                if ($scope.balance_user === undefined) {
+                    userId = $rootScope.user.id;
+                    userName = $rootScope.user.first_name + " " + $rootScope.user.last_name;
+                } else {
+                    userId = $scope.balance_user;
+                    angular.forEach($scope.users, function (value, key) {
+                        if (value.id == userId) {
+                            userName = value.first_name + " " + value.last_name;
+                        }
+                    });
+                }
+                service.balance.post($scope.balance_amount, userId).success(function (result) {
+                    alert.success("You added an amount of " + $scope.balance_amount + "€ to " + userName + ".");
                     $scope.reset();
                     $rootScope.$broadcast('updateUser', []);
                 }).error(function (result) {
@@ -55,19 +68,6 @@ define(["jquery"], function (jQuery) {
                 });
             }
         }
-        /*
-        $scope.update_balance = function() {
-            if ($scope.balance_amount) {
-                service.balance.post($scope.balance_amount, $scope.balance_user).success(function (result) {
-                    alert.success("You added an amount of " + $scope.balance_amount + "€.");
-                    $scope.reset();
-                    $rootScope.$broadcast('updateUser', []);
-                }).error(function (result) {
-                    alert.error("There was an error processing the data.");
-                });
-            }
-        }
-        */
         $scope.reset();
     }
 
